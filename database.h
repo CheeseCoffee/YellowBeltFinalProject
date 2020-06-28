@@ -1,0 +1,14 @@
+//
+// Created by Akbar on 28.06.2020.
+//
+
+#ifndef YELLOWBELTFINALPROJECT_DATABASE_H
+#define YELLOWBELTFINALPROJECT_DATABASE_H
+
+
+class database {
+
+};
+
+
+#endif //YELLOWBELTFINALPROJECT_DATABASE_H

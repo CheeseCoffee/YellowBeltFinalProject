@@ -1,0 +1,14 @@
+//
+// Created by Akbar on 28.06.2020.
+//
+
+#ifndef YELLOWBELTFINALPROJECT_DATE_H
+#define YELLOWBELTFINALPROJECT_DATE_H
+
+
+class date {
+
+};
+
+
+#endif //YELLOWBELTFINALPROJECT_DATE_H

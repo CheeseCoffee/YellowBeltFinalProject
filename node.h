@@ -2,13 +2,19 @@
 // Created by Akbar on 28.06.2020.
 //
 
-#ifndef YELLOWBELTFINALPROJECT_NODE_H
-#define YELLOWBELTFINALPROJECT_NODE_H
 
+class Node {
+    virtual int Evaluate() const = 0;
+};
 
-class node {
+class EmptyNode: public Node {
 
 };
 
+class DateComparisonNode: public Node{
 
-#endif //YELLOWBELTFINALPROJECT_NODE_H
+};
+
+class EventComparisonNode: public Node{
+
+};

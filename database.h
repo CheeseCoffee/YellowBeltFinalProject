@@ -2,13 +2,19 @@
 // Created by Akbar on 28.06.2020.
 //
 
-#ifndef YELLOWBELTFINALPROJECT_DATABASE_H
-#define YELLOWBELTFINALPROJECT_DATABASE_H
+#pragma once
 
+#include <set>
+#include <map>
+#include "date.h"
 
-class database {
+using namespace std;
 
+class Database {
+public:
+    void Add(const Date& date, const string& event);
+    void Print(ostream& stream) const;
+
+private:
+    map<Date, set<string>> storage;
 };
-
-
-#endif //YELLOWBELTFINALPROJECT_DATABASE_H

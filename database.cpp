@@ -18,6 +18,14 @@ void Database::Print(ostream& stream) const {
     }
 }
 
+int Database::RemoveIf(function<bool(const Date&, const string&)> func) {
+    for(const auto& item: storage){
+        for(const string& event: item.second){
+            cout<<func(item.first, event)<<endl;
+        }
+    }
+}
+
 //bool DeleteEvent(const Date& date, const string& event) {
 //    if (storage.count(date) > 0 && storage[date].count(event) > 0) {
 //        storage[date].erase(event);

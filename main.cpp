@@ -40,7 +40,7 @@ int main() {
             };
             int count = db.RemoveIf(predicate);
             cout << "Removed " << count << " entries" << endl;
-        } else if (command == "Find") {
+        }/* else if (command == "Find") {
             auto condition = ParseCondition(is);
             auto predicate = [condition](const Date& date, const string& event) {
                 return condition->Evaluate(date, event);
@@ -61,7 +61,7 @@ int main() {
             continue;
         } else {
             throw logic_error("Unknown command: " + command);
-        }
+        }*/
     }
 
     return 0;

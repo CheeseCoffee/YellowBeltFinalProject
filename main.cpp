@@ -11,14 +11,15 @@ using namespace std;
 string ParseEvent(istream& is) {
     // Р РµР°Р»РёР·СѓР№С‚Рµ СЌС‚Сѓ С„СѓРЅРєС†РёСЋ
     string event;
-    is>>event;
+    is>>ws;
+    getline(is, event, '\n');
     return event;
 }
 
-void TestAll();
+/*void TestAll();*/
 
 int main() {
-    TestAll();
+    //TestAll();
 
     Database db;
 
@@ -40,7 +41,7 @@ int main() {
             };
             int count = db.RemoveIf(predicate);
             cout << "Removed " << count << " entries" << endl;
-        }/* else if (command == "Find") {
+        } else if (command == "Find") {
             auto condition = ParseCondition(is);
             auto predicate = [condition](const Date& date, const string& event) {
                 return condition->Evaluate(date, event);
@@ -61,13 +62,13 @@ int main() {
             continue;
         } else {
             throw logic_error("Unknown command: " + command);
-        }*/
+        }
     }
 
     return 0;
 }
 
-void TestParseEvent() {
+/*void TestParseEvent() {
     {
         istringstream is("event");
         AssertEqual(ParseEvent(is), "event", "Parse event without leading spaces");
@@ -89,4 +90,4 @@ void TestAll() {
     TestRunner tr;
     tr.RunTest(TestParseEvent, "TestParseEvent");
     tr.RunTest(TestParseCondition, "TestParseCondition");
-}
+}*/

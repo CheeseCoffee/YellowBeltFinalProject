@@ -1,6 +1,7 @@
 //
 // Created by Akbar on 28.06.2020.
 //
+#pragma once
 
 #include <memory>
 #include "date.h"
@@ -27,15 +28,25 @@ public:
 };
 
 class EmptyNode: public Node {
-
+    bool Evaluate(const Date& date, const string& event) const override;
 };
 
 class DateComparisonNode: public Node{
+public:
+    DateComparisonNode(Comparison cmp, Date date);
     bool Evaluate(const Date& date, const string& event) const override;
+private:
+    const Date _date;
+    const Comparison _cmp;
 };
 
 class EventComparisonNode: public Node{
+public:
+    EventComparisonNode(Comparison cmp, string event);
     bool Evaluate(const Date& date, const string& event) const override;
+private:
+    const string _event;
+    const Comparison _cmp;
 };
 
 class LogicalOperationNode: public Node{

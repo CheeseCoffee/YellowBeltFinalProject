@@ -11,43 +11,68 @@ using namespace std;
 
 void Database::Add(const Date& date, const string& event) {
     if(storage[date].insert(event).second){
+        //last_storage[date].erase(find_if(last_storage[date].begin(),last_storage[date].end(),[event](const string& event1){return event1==event;}));
         last_storage[date].push_back(event);
-    };
+    }
+
 }
 
 void Database::Print(ostream& stream) const {
-    for (const auto& item : storage) {
+    for (const auto& item : last_storage) {
         for (const string& event : item.second) {
             stream << item.first << " " << event << endl;
         }
     }
 }
 
-int Database::RemoveIf(function<bool(const Date&, const string&)> func) {
-    cout<<"hohohoho"<<endl;
+int Database::RemoveIf(const function<bool(const Date&, const string&)>& func) {
+
     int removed_count=0;
-    for(auto& item: last_storage){
-        Date current_date=item.first;
+
+    /*for(auto& item: last_storage){
         auto vector_begin=item.second.begin();
         auto vector_end=item.second.end();
 
-        auto it=remove_if(vector_begin, vector_end, [func,current_date](const string& event){return func(current_date,event);});
+        auto it=remove_if(vector_begin, vector_end, [func, item](const string& event){return func(item.first,event);});
 
         removed_count=removed_count+(vector_end-it);
 
         for(auto iit=it;iit!=vector_end;iit++){
-            storage[current_date].erase(*iit);
+            storage[item.first].erase(*iit);
         }
         item.second.erase(it, vector_end);
-
-        if(item.second.empty()){last_storage.erase(item.first);storage.erase(item.first);}
     }
+
+    auto i=storage.begin();
+    while((i=find_if(i,storage.end(),[](auto it){return it.second.empty();}))!=storage.end()){
+        storage.erase(i++);
+    }
+
+    auto ii=last_storage.begin();
+    while((ii=find_if(ii,last_storage.end(),[](auto it){return it.second.empty();}))!=last_storage.end()){
+        last_storage.erase(ii++);
+    }*/
+    auto copy=last_storage;
+    for(auto datevent: copy){
+        auto& events=datevent.second;
+        auto del=stable_partition(events.begin(),events.end(),[func,datevent](const string& event){ return !func(datevent.first, event);});
+        removed_count=removed_count+(events.end()-del);
+        events.erase(del,events.end());
+        if(events.empty()){
+            last_storage.erase(datevent.first);
+            storage.erase(datevent.first);
+        }else{
+            last_storage[datevent.first]=events;
+            storage[datevent.first]=set<string>(events.begin(),events.end());
+        }
+    }
+
     return removed_count;
 }
 
-vector<string> Database::FindIf(function<bool (const Date &, const string &)> func) const {
+vector<string> Database::FindIf(const function<bool (const Date &, const string &)>& func) const {
     vector<string> vec;
-    for(const auto& item: storage){
+    for(const auto& item: last_storage){
         Date current_date=item.first;
         auto set_begin=item.second.begin();
         auto set_end=item.second.end();
